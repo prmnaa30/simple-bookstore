@@ -16,7 +16,11 @@ export const processImage = async (req: Request, res: Response, next: NextFuncti
       fs.mkdirSync(uploadPath)
     }
 
-    const filename = `${Date.now()}-${req.file.originalname.split('.')[0]}.webp`
+    const sanitizedName = req.file.originalname
+      .split('.')[0]!
+      .replace(/\s+/g, '_')
+      .replace(/[^a-zA-Z0-9_-]/g, '')
+    const filename = `${Date.now()}-${sanitizedName}.webp`
     const filepath = path.join(uploadPath, filename)
 
     await sharp(req.file.buffer)
