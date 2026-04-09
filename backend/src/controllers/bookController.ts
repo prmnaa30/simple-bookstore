@@ -48,7 +48,7 @@ export const updateBook = async (req: Request, res: Response) => {
     })
 
     if (!existingBook) {
-      return res.status(401).json({ message: "Buku tidak ditemukan"})
+      return res.status(404).json({ message: "Buku tidak ditemukan"})
     }
 
     if (imageUrl && existingBook.imageUrl) {
@@ -64,7 +64,7 @@ export const updateBook = async (req: Request, res: Response) => {
       data: { title, author, price, description, imageUrl }
     })
 
-    return res.status(201).json({ message: `Detail buku '${updatedBook.title}' berhasil diubah!`})
+    return res.status(200).json({ message: `Detail buku '${updatedBook.title}' berhasil diubah!`})
   } catch (error) {
     return res.status(500).json({ message: "Gagal mengubah detail buku" })
   }
@@ -79,7 +79,7 @@ export const deleteBook = async (req: Request, res: Response) => {
     })
 
     if (!existingBook) {
-      return res.status(401).json({ message: "Buku tidak ditemukan"})
+      return res.status(404).json({ message: "Buku tidak ditemukan"})
     }
 
     if (existingBook.imageUrl) {
@@ -94,7 +94,7 @@ export const deleteBook = async (req: Request, res: Response) => {
       where: { id: Number(id) }
     })
 
-    return res.status(201).json({ message: `Buku '${existingBook.title}' berhasil dihapus`})
+    return res.status(200).json({ message: `Buku '${existingBook.title}' berhasil dihapus`})
   } catch (error) {
     return res.status(500).json({ message: "Gagal menghapus buku" })
   }
