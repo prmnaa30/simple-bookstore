@@ -1,4 +1,4 @@
-# 🚀 [Simple Bookstore]
+# 🚀 [Nama Project Kamu]
 
 > Sebuah project eksperimental untuk mengimplementasikan metode **Mini Sprint** dalam pengembangan *software* berskala kecil.
 
