@@ -1,4 +1,4 @@
-# 🚀 [Simple Bookstore]
+# 🚀 [Simple Bookstore Mini Sprint]
 
 > Sebuah project eksperimental untuk mengimplementasikan metode **Mini Sprint** dalam pengembangan *software* berskala kecil.
 
