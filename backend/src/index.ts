@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express'
+import { swaggerSpec } from './config/swagger.js';
 
 import authRoutes from './routes/authRoutes.js'
 import bookRoutes from './routes/bookRoutes.js'
@@ -19,6 +21,8 @@ app.use('/uploads', express.static('uploads'));
 
 app.use('/api/auth', authRoutes)
 app.use('/api/books', bookRoutes)
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: "Welcome to Bookstore API with TypeScript!" });
