@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv';
 
 import authRoutes from './routes/authRoutes.js'
+import bookRoutes from './routes/bookRoutes.js'
 
 dotenv.config();
 
@@ -14,7 +15,10 @@ app.use(cors());
 app.use(cookieParser())
 app.use(express.json());
 
+app.use('/uploads', express.static('uploads'));
+
 app.use('/api/auth', authRoutes)
+app.use('/api/books', bookRoutes)
 
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: "Welcome to Bookstore API with TypeScript!" });
