@@ -19,3 +19,18 @@ export const getAllBooks = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Gagal mengambil data buku."})
   }
 }
+
+export const createBook = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const price = parseInt(req.body.price, 10)
+    const { title, author, description, imageUrl } = req.body
+
+    const newBook = await prisma.book.create({
+      data: { title, author, price, description, imageUrl }
+    })
+
+    return res.status(201).json({ message: "Buku berhasil ditambahkan", data: newBook })
+  } catch (error) {
+    return res.status(500).json({ message: "Gagal menambah buku" })
+  }
+}
