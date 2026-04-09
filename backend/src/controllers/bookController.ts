@@ -64,8 +64,38 @@ export const updateBook = async (req: Request, res: Response) => {
       data: { title, author, price, description, imageUrl }
     })
 
-    return res.status(201).json({ message: `Detail buku "${updatedBook.title}" berhasil diubah!`})
+    return res.status(201).json({ message: `Detail buku '${updatedBook.title}' berhasil diubah!`})
   } catch (error) {
     return res.status(500).json({ message: "Gagal mengubah detail buku" })
+  }
+}
+
+export const deleteBook = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
+
+    const existingBook = await prisma.book.findUnique({
+      where: { id: Number(id) }
+    })
+
+    if (!existingBook) {
+      return res.status(401).json({ message: "Buku tidak ditemukan"})
+    }
+
+    if (existingBook.imageUrl) {
+      const oldImagePath = path.join(path.resolve('uploads'), existingBook.imageUrl);
+      
+      if (fs.existsSync(oldImagePath)) {
+        fs.unlinkSync(oldImagePath);
+      }
+    }
+
+    await prisma.book.delete({
+      where: { id: Number(id) }
+    })
+
+    return res.status(201).json({ message: `Buku '${existingBook.title}' berhasil dihapus`})
+  } catch (error) {
+    return res.status(500).json({ message: "Gagal menghapus buku" })
   }
 }
